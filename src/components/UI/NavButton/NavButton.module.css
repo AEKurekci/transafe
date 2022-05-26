@@ -1,0 +1,20 @@
+.navButton{
+    margin-left: 2rem;
+    display: flex;
+    align-items: center;
+}
+
+.navButton a{
+    text-decoration: none;
+    color: #1b0b46;
+    padding: 10px 0;
+}
+
+.navButton a:hover,
+.navButton a:active{
+    color: whitesmoke;
+}
+
+.iconContainer{
+    padding: 10px 5px;
+}

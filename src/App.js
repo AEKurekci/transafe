@@ -1,25 +1,25 @@
-import logo from './logo.svg';
 import './App.css';
+import React, {Fragment, useState} from "react";
+import HeaderBar from "./components/header/HeaderBar/HeaderBar";
+import MyFiles from "./components/body/MyFiles/MyFiles";
+import SendFile from "./components/body/SendFile/SendFile";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [activePage, setActivePage] = useState(0);
+
+    const pageHandler = (pageNum) => {
+        setActivePage(pageNum)
+    }
+
+    return (
+        <Fragment>
+            <HeaderBar onClick={pageHandler} />
+            <main>
+              {activePage === 0 && <MyFiles />}
+              {activePage === 1 && <SendFile />}
+            </main>
+        </Fragment>
+    );
 }
 
 export default App;
