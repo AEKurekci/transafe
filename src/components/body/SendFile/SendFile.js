@@ -1,8 +1,9 @@
 import React from "react";
 import Card from "../../UI/Card/Card";
 import styles from './SendFile.module.css';
+import Input from "../../UI/Input/Input";
 
-const SendFile = props => {
+const SendFile = () => {
 
     const submitHandler = (event) => {
         event.preventDefault();
@@ -11,39 +12,24 @@ const SendFile = props => {
     return(
         <Card className={styles.container}>
             <form onSubmit={submitHandler}>
-                <div className={styles.control}>
-                    <label htmlFor='receiverFirm'>Alıcı Firma: </label>
-                    <input
-                        id='receiverFirm'
-                    />
-                </div>
-                <div className={styles.control}>
-                    <label htmlFor='receiverID'>Alıcı ID: </label>
-                    <input
-                        id='receiverID'
-                    />
-                </div>
-                <div className={styles.control}>
-                    <label htmlFor='startDate'>Kullanılabilir Süre Başlangıç Tarihi: </label>
-                    <input
-                        id='startDate'
-                        type='date'
-                    />
-                </div>
-                <div className={styles.control}>
-                    <label htmlFor='endDate'>Kullanılabilir Süre Bitiş Tarihi: </label>
-                    <input
-                        id='endDate'
-                        type='date'
-                    />
-                </div>
-                <div className={styles.control}>
-                    <label htmlFor='file'>Dosya: </label>
-                    <input
-                        id='file'
-                        type='file'
-                    />
-                </div>
+                <Input inputConfig={{
+                    id: 'receiverFirm'
+                }} label='Alıcı Firma: ' />
+                <Input inputConfig={{
+                    id: 'receiverID'
+                }} label='Alıcı ID: ' />
+                <Input inputConfig={{
+                    id: 'startDate',
+                    type: 'date'
+                }} label='Kullanılabilir Süre Başlangıç Tarihi: ' />
+                <Input inputConfig={{
+                    id: 'endDate',
+                    type: 'date'
+                }} label='Kullanılabilir Süre Bitiş Tarihi: ' />
+                <Input inputConfig={{
+                    id: 'file',
+                    type: 'file'
+                }} label='Dosya: ' />
             </form>
         </Card>
     )

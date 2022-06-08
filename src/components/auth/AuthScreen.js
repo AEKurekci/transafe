@@ -1,4 +1,6 @@
-import React, {Fragment, useState} from "react";
+import React, {useState} from "react";
+import Input from "../UI/Input/Input";
+import Card from "../UI/Card/Card";
 import styles from './AuthScreen.module.css';
 
 const AuthScreen = props => {
@@ -19,19 +21,23 @@ const AuthScreen = props => {
     }
 
     return (
-        <Fragment>
+        <Card className={styles.container}>
             <form onSubmit={onSubmitHandler}>
-                <div className={styles.input}>
-                    <label htmlFor="email">Email: </label>
-                    <input id="email" value={email} onChange={onEmailChangeHandler}/>
-                </div>
-                <div className={styles.input}>
-                    <label htmlFor="password">Şifre: </label>
-                    <input id="password" value={password} onChange={onPasswordChangeHandler}/>
-                </div>
+                <Input inputConfig={{
+                    id: 'email-auth',
+                    value: email,
+                    onChange: onEmailChangeHandler,
+                    type: 'email'
+                }} label='Email: ' />
+                <Input inputConfig={{
+                    id: 'password-auth',
+                    value: password,
+                    onChange: onPasswordChangeHandler,
+                    type: 'password'
+                }} label='Şifre: ' />
                 <button type='submit'>Giriş</button>
             </form>
-        </Fragment>
+        </Card>
     )
 }
 

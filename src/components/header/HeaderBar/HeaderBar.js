@@ -1,16 +1,15 @@
-import React from "react";
+import React, {useContext} from "react";
 import styles from './HeaderBar.module.css'
-import {Colors} from "../../UI/Colors";
 import Navigation from "../Navigation/Navigation";
+import PageContext from "../../../store/page-context";
 
-const HeaderBar = props => {
-    const onPageHandler = (pageNum) => {
-        props.onClick(pageNum);
-    }
+const HeaderBar = () => {
+    const pageCtx = useContext(PageContext);
+
     return(
         <header className={`${styles.header}`}>
             <h1>Transafe</h1>
-            <Navigation onClick={onPageHandler} />
+            {pageCtx.isLoggedIn && <Navigation/>}
         </header>
     )
 }

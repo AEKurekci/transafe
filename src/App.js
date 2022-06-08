@@ -1,35 +1,32 @@
 import './App.css';
-import React, {Fragment, useState} from "react";
+import React, {Fragment, useContext} from "react";
 import HeaderBar from "./components/header/HeaderBar/HeaderBar";
 import MyFiles from "./components/body/MyFiles/MyFiles";
 import SendFile from "./components/body/SendFile/SendFile";
 import {USERS} from "./store/Users";
 import AuthScreen from "./components/auth/AuthScreen";
+import PageContext from "./store/page-context";
 
 function App() {
-    const [activePage, setActivePage] = useState(2);
-
-
-    const pageHandler = (pageNum) => {
-        setActivePage(pageNum)
-    }
+    const pageCtx = useContext(PageContext);
 
     const onDataEnterHandler = (user) => {
         let filteredUsers = USERS.filter(u => u.email === user.email && u.password === user.password)
         if(filteredUsers.length === 1){
-            setActivePage(0)
+            pageCtx.onChangePage(1)
+            pageCtx.setIsLoggedIn(true)
         }else{
-            setActivePage(2)
+            pageCtx.onChangePage(0)
         }
     }
 
     return (
         <Fragment>
-            <HeaderBar onClick={pageHandler}/>
+            <HeaderBar />
             <main>
-                {activePage === 0 && <MyFiles/>}
-                {activePage === 1 && <SendFile/>}
-                {activePage === 2 && <AuthScreen onDataEnter={onDataEnterHandler}/>}
+                {!pageCtx.isLoggedIn && <AuthScreen onDataEnter={onDataEnterHandler}/>}
+                {pageCtx.activePage === 1 && pageCtx.isLoggedIn && <SendFile/>}
+                {pageCtx.activePage === 2 && pageCtx.isLoggedIn && <MyFiles/>}
             </main>
         </Fragment>
     );

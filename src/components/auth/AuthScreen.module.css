@@ -1,4 +1,6 @@
-.input{
-    display: flex;
-    flex-direction: row;
+.container{
+    padding: 3rem;
+    width: 90%;
+    max-width: 40rem;
+    margin: 2rem auto;
 }
