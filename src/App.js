@@ -3,30 +3,19 @@ import React, {Fragment, useContext} from "react";
 import HeaderBar from "./components/header/HeaderBar/HeaderBar";
 import MyFiles from "./components/body/MyFiles/MyFiles";
 import SendFile from "./components/body/SendFile/SendFile";
-import {USERS} from "./store/Users";
 import AuthScreen from "./components/auth/AuthScreen";
 import PageContext from "./store/page-context";
 
 function App() {
     const pageCtx = useContext(PageContext);
 
-    const onDataEnterHandler = (user) => {
-        let filteredUsers = USERS.filter(u => u.email === user.email && u.password === user.password)
-        if(filteredUsers.length === 1){
-            pageCtx.onChangePage(1)
-            pageCtx.setIsLoggedIn(true)
-        }else{
-            pageCtx.onChangePage(0)
-        }
-    }
-
     return (
         <Fragment>
             <HeaderBar />
             <main>
-                {!pageCtx.isLoggedIn && <AuthScreen onDataEnter={onDataEnterHandler}/>}
-                {pageCtx.activePage === 1 && pageCtx.isLoggedIn && <SendFile/>}
-                {pageCtx.activePage === 2 && pageCtx.isLoggedIn && <MyFiles/>}
+                {!pageCtx.isLoggedIn && <AuthScreen />}
+                {pageCtx.activePage === 1 && pageCtx.isLoggedIn && <SendFile />}
+                {pageCtx.activePage === 2 && pageCtx.isLoggedIn && <MyFiles />}
             </main>
         </Fragment>
     );

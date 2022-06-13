@@ -1,18 +1,50 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 
 const PageContext = React.createContext({
     activePage: 0,
     isLoggedIn: false,
     onChangePage: () => {},
-    setIsLoggedIn: (isLoggedIn) => {}
+    setIsLoggedIn: (isLoggedIn) => {},
+    isErrorModalOpen: false,
+    user: {},
+    setUser: (user) => {},
+    setIsErrorModalOpen: (isErrorModalOpen) => {}
 })
 
 export const PageContextProvider = props => {
     const [activePage, setActivePage] = useState(0);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
+    const [user, setUser] = useState();
+
+    useEffect(() => {
+        const localStIsLoggedIn = localStorage.getItem('isLoggedIn')
+        const cacheUser = JSON.parse(localStorage.getItem('user'));
+        if(localStIsLoggedIn === '1'){
+            setIsLoggedIn(true)
+            onChangePageHandler(1)
+        }else{
+            setIsLoggedIn(false)
+        }
+
+        if(!user && cacheUser){
+            setUser(cacheUser);
+        }
+    }, [user])
 
     const onChangePageHandler = pageNumber => {
         setActivePage(pageNumber);
+    }
+
+    const setIsLoggedInHandler = (value) => {
+        setIsLoggedIn(value)
+        if(value){
+            localStorage.setItem('isLoggedIn', '1')
+        }else{
+            localStorage.setItem('isLoggedIn', '0')
+            localStorage.setItem('user', null)
+            setUser(null)
+        }
     }
 
     return(
@@ -20,7 +52,11 @@ export const PageContextProvider = props => {
             activePage,
             isLoggedIn,
             onChangePage: onChangePageHandler,
-            setIsLoggedIn
+            setIsLoggedIn: setIsLoggedInHandler,
+            isErrorModalOpen,
+            setIsErrorModalOpen,
+            user,
+            setUser
         }}>
             {props.children}
         </PageContext.Provider>
