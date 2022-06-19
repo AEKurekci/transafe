@@ -5,6 +5,7 @@ import MyFiles from "./components/body/MyFiles/MyFiles";
 import SendFile from "./components/body/SendFile/SendFile";
 import AuthScreen from "./components/auth/AuthScreen";
 import PageContext from "./store/page-context";
+import SentFiles from "./components/body/SentFiles/SentFiles";
 
 function App() {
     const pageCtx = useContext(PageContext);
@@ -16,6 +17,7 @@ function App() {
                 {!pageCtx.isLoggedIn && <AuthScreen />}
                 {pageCtx.activePage === 1 && pageCtx.isLoggedIn && <SendFile />}
                 {pageCtx.activePage === 2 && pageCtx.isLoggedIn && <MyFiles />}
+                {pageCtx.activePage === 3 && pageCtx.isLoggedIn && <SentFiles />}
             </main>
         </Fragment>
     );

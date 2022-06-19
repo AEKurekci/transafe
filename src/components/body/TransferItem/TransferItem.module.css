@@ -1,0 +1,50 @@
+.container{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+.main{
+    width: 85%;
+    overflow-wrap: anywhere;
+}
+.main .content{
+    padding: 15px;
+}
+
+.txHash{
+    background-color: #fff9f2;
+    padding: 10px;
+}
+.title{
+    background-color: #d5e9f3;
+    padding: 7px;
+    text-align: center;
+}
+.download{
+    width: 15%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    cursor: pointer;
+}
+.greenBack{
+    background-color: #8dcf8d;
+}
+.yellowBack{
+    background-color: #cfb08d;
+}
+
+.boldText{
+    font-weight: bold;
+}
+.greenText{
+    color: #a8e8a8;
+}
+.redText{
+    color: #f1a4a4;
+}
+.loading{
+    padding: 20px;
+}

@@ -1,20 +1,32 @@
 .navButton{
     margin-left: 2rem;
     display: flex;
+    flex-direction: row;
     align-items: center;
+    cursor: pointer;
+    text-decoration: none;
+    color: #1b0b46;
+    padding: 10px 5px;
+    justify-content: space-around;
 }
 
-.navButton a{
+.navButton button{
     text-decoration: none;
     color: #1b0b46;
     padding: 10px 0;
+    border: none;
+    background-color: unset;
 }
 
-.navButton a:hover,
-.navButton a:active{
+.navButton:hover,
+.navButton:active{
+    color: whitesmoke;
+}
+.navButton button:hover,
+.navButton button:active{
     color: whitesmoke;
 }
 
-.iconContainer{
-    padding: 10px 5px;
+.label{
+    margin-right: 7px;
 }

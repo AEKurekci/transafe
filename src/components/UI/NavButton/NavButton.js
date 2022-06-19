@@ -3,11 +3,9 @@ import styles from './NavButton.module.css';
 
 const NavButton = props => {
     return (
-        <li className={styles.navButton}>
-            <a href='#' onClick={props.onClick}>{props.label}</a>
-            <div className={styles.iconContainer}>
-                {props.icon}
-            </div>
+        <li className={styles.navButton} onClick={props.onClick}>
+            <div className={styles.label}>{props.label}</div>
+            {props.icon}
         </li>
     )
 }
