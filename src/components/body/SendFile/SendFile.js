@@ -121,8 +121,8 @@ const SendFile = () => {
             dispatchInput({type: FILE_LOAD, file: reader.result})
             setIsLoadingFile(false);
         };
-        reader.onerror = (error) => {
-            console.log('Error: ', error);
+        reader.onerror = (fail) => {
+            console.log('Error: ', fail);
             setIsLoadingFile(false);
         };
     }
@@ -139,10 +139,6 @@ const SendFile = () => {
             body: inputState
         })
     }
-
-    useEffect(() => {
-        console.log(inputState)
-    }, [inputState])
 
     useEffect(() => {
         if(error){

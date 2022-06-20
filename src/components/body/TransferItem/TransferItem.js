@@ -41,6 +41,8 @@ const TransferItem = props => {
         console.log('todo examine')
     }
 
+    const isDownloadActive = !props.fileInfo.isReceived && !props.sentFile
+
     if(isLoading){
         return (
             <Card className={styles.loading}>
@@ -59,15 +61,15 @@ const TransferItem = props => {
                     <p className={styles.boldText}>Dosya Kullanım Tarihi:</p>
                     <div>{startDate.format('HH:mm DD/MM/YYYY')} - {endDate.format('HH:mm DD/MM/YYYY')}</div>
                     <div className={`${styles.boldText} ${props.fileInfo.isReceived ? styles.redText : styles.greenText}`}>
-                        {props.fileInfo.isReceived ? 'Daha Önce İndirildi' : 'Henüz İndirilmedi'}
+                        {props.fileInfo.isReceived ? 'İndirildi' : 'Henüz İndirilmedi'}
                     </div>
                 </div>
                 <div className={styles.txHash}><span className={styles.boldText}>Transaction ID: </span>{props.fileInfo.txHash}</div>
             </div>
-            <div className={`${styles.download} ${props.fileInfo.isReceived ? styles.yellowBack : styles.greenBack}`}
-                 onClick={props.fileInfo.isReceived ? examineHandler : downloadHandler}>
-                {props.fileInfo.isReceived ? 'İncele' : 'İndir'}
-                {props.fileInfo.isReceived ? <FaSearch/> : <FaDownload/>}
+            <div className={`${styles.download} ${isDownloadActive ? styles.greenBack : styles.yellowBack}`}
+                 onClick={isDownloadActive ? downloadHandler : examineHandler}>
+                {isDownloadActive ? 'İndir' : 'İncele'}
+                {isDownloadActive ? <FaDownload/> : <FaSearch/>}
             </div>
             {pageCtx.isErrorModalOpen && <ErrorModal
                 title='Indirme Hatası'
