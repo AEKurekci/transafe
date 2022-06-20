@@ -1,6 +1,6 @@
 export const USERS = [{
     email: "blockchain@isbank.com.tr",
-    name: "Iş Bankası",
+    name: "İş Bankası",
     password: "IB1234",
     cordaKey: "Isbank"
 },{

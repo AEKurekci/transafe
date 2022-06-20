@@ -4,8 +4,9 @@ import styles from './SentFiles.module.css';
 import PageContext from "../../../store/page-context";
 import useHttp from "../../../hooks/use-http";
 import ErrorModal from "../ErrorModal/ErrorModal";
+import TransferItem from "../TransferItem/TransferItem";
 
-const SentFiles = props => {
+const SentFiles = () => {
     const pageCtx = useContext(PageContext);
     const [myTransfers, setMyTransfers] = useState([]);
     const {isLoading, error, sendRequest: fetchFiles} = useHttp();
@@ -17,9 +18,12 @@ const SentFiles = props => {
                 file: transfer.state.data.file,
                 startDate: transfer.state.data.startDate,
                 endDate: transfer.state.data.endDate,
-                sender: transfer.state.data.sender,
-                receiver: transfer.state.data.receiver,
-                linearId: transfer.state.data.linearId.id
+                senderAccount: transfer.state.data.senderAccount,
+                receiverAccount: transfer.state.data.receiverAccount,
+                linearId: transfer.state.data.linearId.id,
+                title: transfer.state.data.title,
+                senderHost: transfer.state.data.senderHost,
+                isReceived: transfer.state.data.isReceived
             })));
     }
 
@@ -50,15 +54,18 @@ const SentFiles = props => {
     }
 
     return(
-        <Card className={styles.container}>
-            {myTransfers.length > 0 && myTransfers.map(t => <p>{t.txHash}</p>)}
-            {myTransfers.length === 0 && <p>Henüz hiç dosya göndermediniz. Dosya göndermek için dosya gönder sekmesine geçebilirsiniz.</p>}
+        <div className={styles.container}>
+            {myTransfers.length > 0 && myTransfers.map(t => <TransferItem id={t.txHash} fileInfo={t} sentFile/>)}
+            {myTransfers.length === 0 &&
+                <Card className={styles.container}>
+                    Henüz hiç dosya göndermediniz. Dosya göndermek için dosya gönder sekmesine geçebilirsiniz.
+                </Card>}
             {pageCtx.isErrorModalOpen && <ErrorModal
                 title='Hata'
                 message={`Dosyalar Yüklenirken Bir Hata Oluştu ${error}`}
                 onConfirm={errorConfirmHandler}
             />}
-        </Card>
+        </div>
     )
 }
 

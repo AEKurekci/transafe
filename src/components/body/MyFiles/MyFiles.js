@@ -6,7 +6,7 @@ import useHttp from "../../../hooks/use-http";
 import ErrorModal from "../ErrorModal/ErrorModal";
 import TransferItem from "../TransferItem/TransferItem";
 
-const MyFiles = props => {
+const MyFiles = () => {
     const pageCtx = useContext(PageContext);
     const [myTransfers, setMyTransfers] = useState([]);
     const {isLoading, error, sendRequest: fetchFiles} = useHttp();
@@ -60,7 +60,7 @@ const MyFiles = props => {
 
     return(
         <div className={styles.container}>
-            {myTransfers.length > 0 && myTransfers.map(transferData => <TransferItem key={transferData.txHash} fileInfo={transferData} onDownloadFinish={downloadFinishHandler} />)}
+            {myTransfers.length > 0 && myTransfers.map(transferData => <TransferItem key={transferData.txHash} fileInfo={transferData} onDownloadFinish={downloadFinishHandler} sentFile={false} />)}
             {myTransfers.length === 0 && <Card className={styles.container}>Size henüz gelen bir dosya bulunmuyor. Dosya göndermek için dosya gönder sekmesine geçebilirsiniz.</Card>}
             {pageCtx.isErrorModalOpen && <ErrorModal
                 title='Hata'
