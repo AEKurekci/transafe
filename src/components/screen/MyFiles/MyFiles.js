@@ -3,8 +3,8 @@ import Card from "../../UI/Card/Card";
 import styles from './MyFiles.module.css';
 import PageContext from "../../../store/page-context";
 import useHttp from "../../../hooks/use-http";
-import ErrorModal from "../ErrorModal/ErrorModal";
-import TransferItem from "../TransferItem/TransferItem";
+import ErrorModal from "../../UI/ErrorModal/ErrorModal";
+import TransferItem from "../../UI/TransferItem/TransferItem";
 
 const MyFiles = () => {
     const pageCtx = useContext(PageContext);

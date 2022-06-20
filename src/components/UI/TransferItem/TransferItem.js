@@ -1,5 +1,5 @@
 import React, {useContext} from "react";
-import Card from "../../UI/Card/Card";
+import Card from "../Card/Card";
 import styles from './TransferItem.module.css';
 import moment from "moment";
 import {FaDownload, FaSearch} from "react-icons/fa";
@@ -14,7 +14,7 @@ const TransferItem = props => {
     endDate.locale('tr')
     const pageCtx = useContext(PageContext);
 
-    const {isLoading, error, sendRequest: receiveFile} = useHttp();
+    const {isLoading, error, sendRequest} = useHttp();
 
     const handleFile = (response) => {
         props.onDownloadFinish();
@@ -25,7 +25,7 @@ const TransferItem = props => {
     }
 
     const downloadHandler = () => {
-        receiveFile(handleFile, {
+        sendRequest(handleFile, {
             path: 'receiveFile',
             method: 'POST',
             body: {
@@ -38,7 +38,8 @@ const TransferItem = props => {
     }
 
     const examineHandler = () => {
-        console.log('todo examine')
+        localStorage.setItem('linearId', props.fileInfo.linearId)
+        pageCtx.onChangePage(4);
     }
 
     const isDownloadActive = !props.fileInfo.isReceived && !props.sentFile

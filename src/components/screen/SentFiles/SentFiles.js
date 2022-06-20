@@ -3,8 +3,8 @@ import Card from "../../UI/Card/Card";
 import styles from './SentFiles.module.css';
 import PageContext from "../../../store/page-context";
 import useHttp from "../../../hooks/use-http";
-import ErrorModal from "../ErrorModal/ErrorModal";
-import TransferItem from "../TransferItem/TransferItem";
+import ErrorModal from "../../UI/ErrorModal/ErrorModal";
+import TransferItem from "../../UI/TransferItem/TransferItem";
 
 const SentFiles = () => {
     const pageCtx = useContext(PageContext);
@@ -55,7 +55,7 @@ const SentFiles = () => {
 
     return(
         <div className={styles.container}>
-            {myTransfers.length > 0 && myTransfers.map(t => <TransferItem id={t.txHash} fileInfo={t} sentFile/>)}
+            {myTransfers.length > 0 && myTransfers.map(t => <TransferItem id={t.txHash} key={t.txHash} fileInfo={t} sentFile/>)}
             {myTransfers.length === 0 &&
                 <Card className={styles.container}>
                     Henüz hiç dosya göndermediniz. Dosya göndermek için dosya gönder sekmesine geçebilirsiniz.

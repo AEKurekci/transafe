@@ -4,7 +4,7 @@ import styles from './SendFile.module.css';
 import Input from "../../UI/Input/Input";
 import PageContext from "../../../store/page-context";
 import useHttp from "../../../hooks/use-http";
-import ErrorModal from "../ErrorModal/ErrorModal";
+import ErrorModal from "../../UI/ErrorModal/ErrorModal";
 import Button from "../../UI/Buttons/Button";
 
 const RECEIVER_SELECT = 'RECEIVER_SELECT';
