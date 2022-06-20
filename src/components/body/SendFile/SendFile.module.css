@@ -21,7 +21,6 @@
     color: #464646;
     margin-bottom: 0.5rem;
 }
-
 .control input{
     flex: 3;
     font: inherit;
@@ -40,4 +39,8 @@
         align-items: center;
         flex-direction: row;
     }
+}
+
+.fullWidth{
+    width: 100%;
 }

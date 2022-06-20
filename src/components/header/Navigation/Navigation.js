@@ -16,6 +16,7 @@ const Navigation = () => {
             <ul>
                 <NavButton label='Gelen Dosyalar' onClick={() => {pageCtx.onChangePage(2)}} icon={<FaInbox />}/>
                 <NavButton label='Dosya Gönder' onClick={() => {pageCtx.onChangePage(1)}} icon={<FaTelegramPlane />}/>
+                <NavButton label='Giden Dosyalar' onClick={() => {pageCtx.onChangePage(3)}} icon={<FaTelegramPlane />}/>
                 <NavButton label='Çıkış' onClick={logoutHandler} icon={<FaSignOutAlt />}/>
             </ul>
         </nav>
