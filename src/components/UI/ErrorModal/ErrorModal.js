@@ -1,7 +1,7 @@
 import React from "react";
 import styles from './ErrorModal.module.css';
-import Button from "../../UI/Buttons/Button";
-import Modal from "../../UI/Modal/Modal";
+import Button from "../Buttons/Button";
+import Modal from "../Modal/Modal";
 
 const ErrorModal = (props) => {
     return(

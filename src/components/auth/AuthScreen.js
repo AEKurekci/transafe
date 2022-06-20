@@ -4,10 +4,10 @@ import Card from "../UI/Card/Card";
 import styles from './AuthScreen.module.css';
 import {USERS} from "../../store/Users";
 import PageContext from "../../store/page-context";
-import ErrorModal from "../body/ErrorModal/ErrorModal";
+import ErrorModal from "../UI/ErrorModal/ErrorModal";
 import Button from "../UI/Buttons/Button";
 
-const AuthScreen = props => {
+const AuthScreen = () => {
     const [user, setUser] = useState({
         email: '',
         password: ''

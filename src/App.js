@@ -1,11 +1,12 @@
 import './App.css';
 import React, {Fragment, useContext} from "react";
 import HeaderBar from "./components/header/HeaderBar/HeaderBar";
-import MyFiles from "./components/body/MyFiles/MyFiles";
-import SendFile from "./components/body/SendFile/SendFile";
+import MyFiles from "./components/screen/MyFiles/MyFiles";
+import SendFile from "./components/screen/SendFile/SendFile";
 import AuthScreen from "./components/auth/AuthScreen";
 import PageContext from "./store/page-context";
-import SentFiles from "./components/body/SentFiles/SentFiles";
+import SentFiles from "./components/screen/SentFiles/SentFiles";
+import TransferDetails from "./components/screen/TransferDetails/TransferDetails";
 
 function App() {
     const pageCtx = useContext(PageContext);
@@ -18,6 +19,7 @@ function App() {
                 {pageCtx.activePage === 1 && pageCtx.isLoggedIn && <SendFile />}
                 {pageCtx.activePage === 2 && pageCtx.isLoggedIn && <MyFiles />}
                 {pageCtx.activePage === 3 && pageCtx.isLoggedIn && <SentFiles />}
+                {pageCtx.activePage === 4 && pageCtx.isLoggedIn && <TransferDetails />}
             </main>
         </Fragment>
     );
