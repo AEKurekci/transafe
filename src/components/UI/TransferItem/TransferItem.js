@@ -1,10 +1,10 @@
-import React, {useContext} from "react";
+import React from "react";
 import Card from "../Card/Card";
 import styles from './TransferItem.module.css';
 import moment from "moment";
 import {FaDownload, FaSearch} from "react-icons/fa";
 import useHttp from "../../../hooks/use-http";
-import PageContext from "../../../store/page-context";
+import {usePageContext} from "../../../store/page-context";
 import ErrorModal from "../ErrorModal/ErrorModal";
 
 const TransferItem = props => {
@@ -12,7 +12,8 @@ const TransferItem = props => {
     startDate.locale('tr')
     const endDate = moment(props.fileInfo.endDate)
     endDate.locale('tr')
-    const pageCtx = useContext(PageContext);
+    const pageCtx = usePageContext();
+    console.log(pageCtx)
 
     const {isLoading, error, sendRequest} = useHttp();
 

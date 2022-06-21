@@ -1,18 +1,18 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import Card from "../../UI/Card/Card";
 import styles from './MyFiles.module.css';
-import PageContext from "../../../store/page-context";
+import {usePageContext} from "../../../store/page-context";
 import useHttp from "../../../hooks/use-http";
 import ErrorModal from "../../UI/ErrorModal/ErrorModal";
 import TransferItem from "../../UI/TransferItem/TransferItem";
 
 const MyFiles = () => {
-    const pageCtx = useContext(PageContext);
+    const pageCtx = usePageContext();
     const [myTransfers, setMyTransfers] = useState([]);
     const {isLoading, error, sendRequest: fetchFiles} = useHttp();
     const [downloadCounter, setDownloadCounter] = useState(0)
 
-    const fetchFilesHandler = data => {
+    const fetchFilesHandler = useCallback(data => {
         setMyTransfers(data.myTransfers.filter(transfer => transfer.state.data.receiverAccount === pageCtx.user.cordaKey)
             .map(transfer => ({
                 txHash: transfer.ref.txhash,
@@ -26,7 +26,7 @@ const MyFiles = () => {
                 senderHost: transfer.state.data.senderHost,
                 isReceived: transfer.state.data.isReceived
             })));
-    }
+    }, [pageCtx.user.cordaKey])
 
     useEffect(() => {
         fetchFiles(fetchFilesHandler, {
@@ -34,13 +34,13 @@ const MyFiles = () => {
             body: {accountName: pageCtx.user.cordaKey},
             method: 'POST'
         });
-    }, [fetchFiles, pageCtx.user.cordaKey, pageCtx.activePage, downloadCounter]);
+    }, [fetchFiles, pageCtx.user.cordaKey, pageCtx.activePage, downloadCounter, fetchFilesHandler]);
 
     useEffect(() => {
         if(error){
             pageCtx.setIsErrorModalOpen(true);
         }
-    }, [error])
+    }, [error, pageCtx.setIsErrorModalOpen])
 
     const errorConfirmHandler = () => {
         pageCtx.setIsErrorModalOpen(false);

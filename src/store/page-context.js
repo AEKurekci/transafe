@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 
 const PageContext = React.createContext({
     activePage: 0,
@@ -10,6 +10,8 @@ const PageContext = React.createContext({
     setUser: (user) => {},
     setIsErrorModalOpen: (isErrorModalOpen) => {}
 })
+
+export const usePageContext = () => useContext(PageContext);
 
 export const PageContextProvider = props => {
     const [activePage, setActivePage] = useState(0);

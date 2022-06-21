@@ -1,10 +1,10 @@
-import React, {useContext} from "react";
+import React from "react";
 import styles from './HeaderBar.module.css'
 import Navigation from "../Navigation/Navigation";
-import PageContext from "../../../store/page-context";
+import {usePageContext} from "../../../store/page-context";
 
 const HeaderBar = () => {
-    const pageCtx = useContext(PageContext);
+    const pageCtx = usePageContext();
 
     return(
         <header className={`${styles.header}`}>

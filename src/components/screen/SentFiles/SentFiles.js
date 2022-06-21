@@ -1,13 +1,13 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import Card from "../../UI/Card/Card";
 import styles from './SentFiles.module.css';
-import PageContext from "../../../store/page-context";
+import {usePageContext} from "../../../store/page-context";
 import useHttp from "../../../hooks/use-http";
 import ErrorModal from "../../UI/ErrorModal/ErrorModal";
 import TransferItem from "../../UI/TransferItem/TransferItem";
 
 const SentFiles = () => {
-    const pageCtx = useContext(PageContext);
+    const pageCtx = usePageContext()
     const [myTransfers, setMyTransfers] = useState([]);
     const {isLoading, error, sendRequest: fetchFiles} = useHttp();
 
