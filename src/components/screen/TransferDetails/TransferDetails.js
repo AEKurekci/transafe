@@ -1,15 +1,15 @@
-import React, {Fragment, useContext, useEffect, useState} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 
 import styles from './TransferDetails.module.css';
 import useHttp from "../../../hooks/use-http";
 import Card from "../../UI/Card/Card";
 import ErrorModal from "../../UI/ErrorModal/ErrorModal";
-import PageContext from "../../../store/page-context";
+import {usePageContext} from "../../../store/page-context";
 import BlockItem from "../../UI/BlockItem/BlockItem";
 import Line from "../../UI/Line/Line";
 
 const TransferDetails = () => {
-    const pageCtx = useContext(PageContext)
+    const pageCtx = usePageContext();
     const {isLoading, error, sendRequest: getHistoricData} = useHttp();
     const [transferList, setTransferList] = useState([]);
 
@@ -57,6 +57,7 @@ const TransferDetails = () => {
                         <div>
                             <h3>{index === 0 ? transferInfo.senderAccount : transferInfo.receiverAccount}</h3>
                             <BlockItem id={transferInfo.txHash}
+                                       key={transferInfo.txHash}
                                        senderAccount={transferInfo.senderAccount}
                                        linearId={transferInfo.linearId}
                                        receiverAccount={transferInfo.receiverAccount}
@@ -68,6 +69,7 @@ const TransferDetails = () => {
                         {index !== transferList.length - 1 && <Line/>}
                     </Fragment>
                 ))}
+                {transferList.length === 0 && <Card>Dosya ayrıntıları yüklenemedi</Card>}
             </div>
             {pageCtx.isErrorModalOpen && <ErrorModal
                 title='Hata'

@@ -1,8 +1,8 @@
-import React, {useContext, useEffect, useReducer, useState} from "react";
+import React, {useCallback, useEffect, useReducer, useState} from "react";
 import Card from "../../UI/Card/Card";
 import styles from './SendFile.module.css';
 import Input from "../../UI/Input/Input";
-import PageContext from "../../../store/page-context";
+import {usePageContext} from "../../../store/page-context";
 import useHttp from "../../../hooks/use-http";
 import ErrorModal from "../../UI/ErrorModal/ErrorModal";
 import Button from "../../UI/Buttons/Button";
@@ -63,12 +63,14 @@ const initialState = {
 
 const SendFile = () => {
     const [inputState, dispatchInput] = useReducer(inputReducer, initialState);
-    const pageCtx = useContext(PageContext);
+    const pageCtx = usePageContext();
     const [options, setOptions] = useState();
     const {isLoading, error, sendRequest} = useHttp();
     const [isLoadingFile, setIsLoadingFile] = useState(false);
+    const [loadingText, setLoadingText] = useState('');
+    const [isFileSent, setIsFileSent] = useState(false);
 
-    const accountResponseHandler = (response) => {
+    const accountResponseHandler = useCallback((response) => {
         if(pageCtx.user){
             setOptions(response.accounts.filter(acc => acc.state.data.name !== pageCtx.user.cordaKey)
                 .map(acc => ({
@@ -86,13 +88,14 @@ const SendFile = () => {
             pageCtx.setUser(cacheUser)
             dispatchInput({type: SENDER_SELECT, sender: cacheUser.cordaKey})
         }
-    }
+    }, [pageCtx.user])
 
     useEffect(() => {
+        setLoadingText('Mevcut hesaplar yükleniyor');
         sendRequest(accountResponseHandler,{
             path: 'receiveAllAccounts'
         })
-    }, [sendRequest])
+    }, [sendRequest, accountResponseHandler])
 
     const titleChangeHandler = (event) => {
         dispatchInput({type: TITLE_CHANGE, title: event.target.value})
@@ -127,12 +130,13 @@ const SendFile = () => {
         };
     }
 
-    const sendFileResponseHandler = (response) => {
-        console.log(response);
+    const sendFileResponseHandler = () => {
+        setIsFileSent(true)
     }
 
     const submitHandler = async (event) => {
         event.preventDefault();
+        setLoadingText('Dosya gönderiliyor...');
         await sendRequest(sendFileResponseHandler, {
             path: 'sendFile',
             method: 'POST',
@@ -149,19 +153,14 @@ const SendFile = () => {
     const errorConfirmHandler = () => {
         pageCtx.setIsErrorModalOpen(false);
     }
+    const fileModalSentConfirm = () => {
+        setIsFileSent(false)
+    }
 
     if(isLoading){
         return(
             <Card className={styles.container}>
-                <p>Dosya Gönderiliyor...</p>
-            </Card>
-        )
-    }
-
-    if(isLoadingFile){
-        return(
-            <Card className={styles.container}>
-                <p>Dosya Yükleniyor...</p>
+                <p>{loadingText}</p>
             </Card>
         )
     }
@@ -191,13 +190,20 @@ const SendFile = () => {
                     type: 'file',
                 }} label='Dosya: ' onChange={fileSelectHandler} />
                 <div className={styles.fullWidth}>
-                    <Button type='submit' className={styles.fullWidth}>Gönder</Button>
+                    {isLoadingFile
+                        ? <p>Dosya Yükleniyor...</p>
+                        : <Button type='submit' className={styles.fullWidth}>Gönder</Button>}
                 </div>
             </form>
             {pageCtx.isErrorModalOpen && <ErrorModal
                 title='Hata'
                 message={`Dosyalar Gönderilirken Bir Hata Oluştu ${error}`}
                 onConfirm={errorConfirmHandler}
+            />}
+            {isFileSent && <ErrorModal
+                title='Başarılı'
+                message='Dosya Başarılı bir şekilde alıcıya gönderildi.'
+                onConfirm={fileModalSentConfirm}
             />}
         </Card>
     )
