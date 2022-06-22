@@ -4,8 +4,7 @@
     align-items: stretch;
     flex-direction: column;
 }
-.control label,
-.control input {
+.control label {
     display: block;
 }
 .control label {
@@ -15,19 +14,20 @@
     margin-bottom: 0.5rem;
 }
 
-.control input{
+.select{
     flex: 3;
-    font: inherit;
-    padding: 0.8rem;
-    border-radius: 5px;
-    border: 1px solid #9f9f9f;
-}
-.control input:focus{
-    outline: none;
-    border-color: #1c8ec9;
-    background-color: #e5f2ff;
 }
 
+.dropdownContainer{
+    display: flex;
+    flex-direction: row;
+    width: 76%;
+    align-items: center;
+}
+.button{
+    padding:8px;
+    margin-left: 10px;
+}
 @media (min-width: 768px) {
     .control{
         align-items: center;

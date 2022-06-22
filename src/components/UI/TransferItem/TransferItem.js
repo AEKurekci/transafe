@@ -1,8 +1,8 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Card from "../Card/Card";
 import styles from './TransferItem.module.css';
 import moment from "moment";
-import {FaDownload, FaSearch} from "react-icons/fa";
+import {FaDownload, FaSearch, FaTimes} from "react-icons/fa";
 import useHttp from "../../../hooks/use-http";
 import {usePageContext} from "../../../store/page-context";
 import ErrorModal from "../ErrorModal/ErrorModal";
@@ -13,7 +13,7 @@ const TransferItem = props => {
     const endDate = moment(props.fileInfo.endDate)
     endDate.locale('tr')
     const pageCtx = usePageContext();
-    console.log(pageCtx)
+    const today = moment()
 
     const {isLoading, error, sendRequest} = useHttp();
 
@@ -43,11 +43,17 @@ const TransferItem = props => {
         pageCtx.onChangePage(4);
     }
 
+    useEffect(() => {
+        if(error){
+            pageCtx.setIsErrorModalOpen(true)
+        }
+    }, [error, pageCtx.setIsErrorModalOpen])
+
     const isDownloadActive = !props.fileInfo.isReceived && !props.sentFile
 
     if(isLoading){
         return (
-            <Card className={styles.loading}>
+            <Card className={`${styles.loading} ${styles.container}`}>
                 <p>Dosya İndiriliyor...</p>
             </Card>
         )
@@ -68,12 +74,18 @@ const TransferItem = props => {
                 </div>
                 <div className={styles.txHash}><span className={styles.boldText}>Transaction ID: </span>{props.fileInfo.txHash}</div>
             </div>
-            <div className={`${styles.download} ${isDownloadActive ? styles.greenBack : styles.yellowBack}`}
+            <div className={`${styles.download} ${isDownloadActive 
+                ? endDate.isAfter(today, 'second') ? styles.greenBack : styles.redBack 
+                : styles.yellowBack}`}
                  onClick={isDownloadActive ? downloadHandler : examineHandler}>
-                {isDownloadActive ? 'İndir' : 'İncele'}
-                {isDownloadActive ? <FaDownload/> : <FaSearch/>}
+                {isDownloadActive
+                    ? endDate.isAfter(today, 'second') ? 'İndir' : 'Tarihi Geçti'
+                    : 'İncele'}
+                {isDownloadActive
+                    ? endDate.isAfter(today, 'second') ? <FaDownload/> : <FaTimes />
+                    : <FaSearch/>}
             </div>
-            {pageCtx.isErrorModalOpen && <ErrorModal
+            {pageCtx.isErrorModalOpen && error && <ErrorModal
                 title='Indirme Hatası'
                 message={`'Dosya İndirilirken bir hata oluştu' ${error}`}
                 onConfirm={() => pageCtx.setIsErrorModalOpen(false)}

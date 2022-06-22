@@ -19,7 +19,8 @@ const useHttp = () => {
                 }
             });
             if(!response.ok){
-                throw new Error("Get Files request fail!")
+                const error = await response.json();
+                throw new Error(error.error)
             }
             const data = await response.json();
             returnDataHandler(data);

@@ -6,6 +6,7 @@ import {usePageContext} from "../../../store/page-context";
 import useHttp from "../../../hooks/use-http";
 import ErrorModal from "../../UI/ErrorModal/ErrorModal";
 import Button from "../../UI/Buttons/Button";
+import SelectInput from "../../UI/SelectInput/SelectInput";
 
 const RECEIVER_SELECT = 'RECEIVER_SELECT';
 const SENDER_SELECT = 'SENDER_SELECT';
@@ -13,6 +14,7 @@ const TITLE_CHANGE = 'TITLE_CHANGE';
 const START_DATE_SELECT = 'START_DATE_SELECT';
 const END_DATE_SELECT = 'END_DATE_SELECT';
 const FILE_LOAD = 'FILE_LOAD';
+const CLEAR_INPUTS = 'CLEAR_INPUTS';
 
 const inputReducer = (state, action) => {
     switch (action.type){
@@ -47,6 +49,8 @@ const inputReducer = (state, action) => {
                 ...state,
                 file: action.file
             }
+        case CLEAR_INPUTS:
+            return initialState
         default:
             return state;
     }
@@ -132,6 +136,7 @@ const SendFile = () => {
 
     const sendFileResponseHandler = () => {
         setIsFileSent(true)
+        dispatchInput({type: CLEAR_INPUTS})
     }
 
     const submitHandler = async (event) => {
@@ -172,9 +177,9 @@ const SendFile = () => {
                     id: 'title',
                     value: inputState.title,
                 }} label='Dosya Başlığı: ' onChange={titleChangeHandler}/>
-                <Input inputConfig={{
+                <SelectInput inputConfig={{
                     id: 'receiverFirm'
-                }} label='Alıcı Firma: ' type='dropdown' options={options} onChange={receiverChangeHandler}/>
+                }} label='Alıcı Firma: ' options={options} onChange={receiverChangeHandler}/>
                 <Input inputConfig={{
                     id: 'startDate',
                     type: 'datetime-local',

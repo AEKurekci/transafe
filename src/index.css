@@ -12,5 +12,13 @@ code {
     monospace;
 }
 main{
-  margin-top: 6rem;
+  margin-top: 5rem;
+  display: flex;
+  flex-direction: column;
+  background-position: top;
+  min-height: 100vh;
+  background-repeat: repeat;
+}
+html::-webkit-scrollbar {
+  display: none;
 }

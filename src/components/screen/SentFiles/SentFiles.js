@@ -57,7 +57,7 @@ const SentFiles = () => {
         <div className={styles.container}>
             {myTransfers.length > 0 && myTransfers.map(t => <TransferItem id={t.txHash} key={t.txHash} fileInfo={t} sentFile/>)}
             {myTransfers.length === 0 &&
-                <Card className={styles.container}>
+                <Card className={`${styles.container} ${styles.warning}`}>
                     Henüz hiç dosya göndermediniz. Dosya göndermek için dosya gönder sekmesine geçebilirsiniz.
                 </Card>}
             {pageCtx.isErrorModalOpen && <ErrorModal
