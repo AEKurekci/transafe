@@ -53,7 +53,7 @@ const TransferItem = props => {
 
     if(isLoading){
         return (
-            <Card className={styles.loading}>
+            <Card className={`${styles.loading} ${styles.container}`}>
                 <p>Dosya İndiriliyor...</p>
             </Card>
         )

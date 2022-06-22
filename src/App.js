@@ -7,6 +7,7 @@ import AuthScreen from "./components/auth/AuthScreen";
 import PageContext from "./store/page-context";
 import SentFiles from "./components/screen/SentFiles/SentFiles";
 import TransferDetails from "./components/screen/TransferDetails/TransferDetails";
+import background from './assets/whiteBackground.png'
 
 function App() {
     const pageCtx = useContext(PageContext);
@@ -14,7 +15,7 @@ function App() {
     return (
         <Fragment>
             <HeaderBar />
-            <main>
+            <main style={{backgroundImage: `url(${background})`}}>
                 {!pageCtx.isLoggedIn && <AuthScreen />}
                 {pageCtx.activePage === 1 && pageCtx.isLoggedIn && <SendFile />}
                 {pageCtx.activePage === 2 && pageCtx.isLoggedIn && <MyFiles />}

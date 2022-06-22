@@ -1,9 +1,9 @@
 .button{
     background-color: #1c8ec9;
     color: whitesmoke;
-    margin-top: 8px;
-    padding: 8px;
-    font-size: 15px;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
     cursor: pointer;
     border: none;
     border-radius: 5px;

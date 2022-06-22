@@ -61,7 +61,7 @@ const MyFiles = () => {
     return(
         <div className={styles.container}>
             {myTransfers.length > 0 && myTransfers.map(transferData => <TransferItem key={transferData.txHash} fileInfo={transferData} onDownloadFinish={downloadFinishHandler} sentFile={false} />)}
-            {myTransfers.length === 0 && <Card className={styles.container}>Size henüz gelen bir dosya bulunmuyor. Dosya göndermek için dosya gönder sekmesine geçebilirsiniz.</Card>}
+            {myTransfers.length === 0 && <Card className={`${styles.container} ${styles.warning}`}>Size henüz gelen bir dosya bulunmuyor. Dosya göndermek için dosya gönder sekmesine geçebilirsiniz.</Card>}
             {pageCtx.isErrorModalOpen && error && <ErrorModal
                 title='Hata'
                 message={`Dosyalar Yüklenirken Bir Hata Oluştu ${error}`}

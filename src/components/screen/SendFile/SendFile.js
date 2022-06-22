@@ -6,6 +6,7 @@ import {usePageContext} from "../../../store/page-context";
 import useHttp from "../../../hooks/use-http";
 import ErrorModal from "../../UI/ErrorModal/ErrorModal";
 import Button from "../../UI/Buttons/Button";
+import SelectInput from "../../UI/SelectInput/SelectInput";
 
 const RECEIVER_SELECT = 'RECEIVER_SELECT';
 const SENDER_SELECT = 'SENDER_SELECT';
@@ -176,9 +177,9 @@ const SendFile = () => {
                     id: 'title',
                     value: inputState.title,
                 }} label='Dosya Başlığı: ' onChange={titleChangeHandler}/>
-                <Input inputConfig={{
+                <SelectInput inputConfig={{
                     id: 'receiverFirm'
-                }} label='Alıcı Firma: ' type='dropdown' options={options} onChange={receiverChangeHandler}/>
+                }} label='Alıcı Firma: ' options={options} onChange={receiverChangeHandler}/>
                 <Input inputConfig={{
                     id: 'startDate',
                     type: 'datetime-local',
