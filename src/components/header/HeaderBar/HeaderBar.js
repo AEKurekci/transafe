@@ -8,7 +8,7 @@ const HeaderBar = () => {
 
     return(
         <header className={`${styles.header}`}>
-            <h1>Transafe</h1>
+            <h1>TranSafe</h1>
             {pageCtx.isLoggedIn && <Navigation/>}
             {pageCtx.isLoggedIn && <h3>Hoşgeldin {pageCtx.user.name}</h3>}
         </header>
