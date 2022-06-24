@@ -7,13 +7,13 @@ test('renders header bar', () => {
     const mockContext = {
         isLoggedIn: true,
         user: {
-            name: 'Ali'
+            name: 'Definex'
         }
     }
     jest.spyOn(PageContext, 'usePageContext').mockImplementation(() => mockContext)
     customRender(<HeaderBar />, mockContext);
     const loginTitle = screen.getByText(/Transafe/i);
-    const welcome = screen.getByText(/Hoşgeldin Ali/i);
+    const welcome = screen.getByText(/Hoşgeldin Definex/i);
 
     expect(loginTitle).toBeInTheDocument();
     expect(welcome).toBeInTheDocument();

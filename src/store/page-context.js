@@ -24,7 +24,7 @@ export const PageContextProvider = props => {
         const cacheUser = JSON.parse(localStorage.getItem('user'));
         if(localStIsLoggedIn === '1'){
             setIsLoggedIn(true)
-            onChangePageHandler(1)
+            onChangePageHandler(2)
         }else{
             setIsLoggedIn(false)
         }

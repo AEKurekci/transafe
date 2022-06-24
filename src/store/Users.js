@@ -13,5 +13,10 @@ export const USERS = [{
     name: "Garanti Bankası",
     password: "GB1234",
     cordaKey: "Garanti"
+},{
+    email: "blockchain@definex.com.tr",
+    name: "Definex",
+    password: "DX1234",
+    cordaKey: "Definex"
 }
 ]

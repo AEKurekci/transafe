@@ -73,6 +73,7 @@ const SendFile = () => {
     const [isLoadingFile, setIsLoadingFile] = useState(false);
     const [loadingText, setLoadingText] = useState('');
     const [isFileSent, setIsFileSent] = useState(false);
+    const [showFormInvalidError, setShowFormInvalidError] = useState(false)
 
     const accountResponseHandler = useCallback((response) => {
         if(pageCtx.user){
@@ -141,12 +142,28 @@ const SendFile = () => {
 
     const submitHandler = async (event) => {
         event.preventDefault();
-        setLoadingText('Dosya gönderiliyor...');
-        await sendRequest(sendFileResponseHandler, {
-            path: 'sendFile',
-            method: 'POST',
-            body: inputState
-        })
+        if(validate()){
+            setLoadingText('Dosya gönderiliyor...');
+            await sendRequest(sendFileResponseHandler, {
+                path: 'sendFile',
+                method: 'POST',
+                body: inputState
+            })
+        }else{
+            setShowFormInvalidError(true)
+        }
+    }
+    const validate = () => {
+        for(let key in inputState){
+            if(inputState[key].trim().length === 0){
+                return false
+            }
+        }
+        return true
+    }
+
+    const formErrorSubmitHandler = () => {
+        setShowFormInvalidError(false)
     }
 
     useEffect(() => {
@@ -177,18 +194,22 @@ const SendFile = () => {
                     id: 'title',
                     value: inputState.title,
                 }} label='Dosya Başlığı: ' onChange={titleChangeHandler}/>
-                <SelectInput inputConfig={{
-                    id: 'receiverFirm'
-                }} label='Alıcı Firma: ' options={options} onChange={receiverChangeHandler}/>
+                <SelectInput
+                    id='receiverFirm'
+                    label='Alıcı Firma: '
+                    options={options}
+                    onChange={receiverChangeHandler}/>
                 <Input inputConfig={{
                     id: 'startDate',
                     type: 'datetime-local',
-                    step: '1'
+                    step: '1',
+                    value: inputState.startDate
                 }} label='Kullanılabilir Süre Başlangıç Tarihi: ' onChange={startDateChange} />
                 <Input inputConfig={{
                     id: 'endDate',
                     type: 'datetime-local',
-                    step: '1'
+                    step: '1',
+                    value: inputState.endDate
                 }} label='Kullanılabilir Süre Bitiş Tarihi: ' onChange={endDateChange}/>
                 <Input inputConfig={{
                     id: 'file',
@@ -209,6 +230,11 @@ const SendFile = () => {
                 title='Başarılı'
                 message='Dosya Başarılı bir şekilde alıcıya gönderildi.'
                 onConfirm={fileModalSentConfirm}
+            />}
+            {showFormInvalidError && <ErrorModal
+                title='Hata'
+                message='Lütfen tüm alanların doğru girildiğinden emin olunuz.'
+                onConfirm={formErrorSubmitHandler}
             />}
         </Card>
     )

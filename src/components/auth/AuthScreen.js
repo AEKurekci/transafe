@@ -17,7 +17,7 @@ const AuthScreen = () => {
     const loginHandler = () => {
         let filteredUsers = USERS.filter(u => u.email === user.email && u.password === user.password)
         if(filteredUsers.length === 1){
-            pageCtx.onChangePage(1)
+            pageCtx.onChangePage(2)
             pageCtx.setIsLoggedIn(true)
             localStorage.setItem('user', JSON.stringify(filteredUsers[0]))
             pageCtx.setUser(filteredUsers[0])
