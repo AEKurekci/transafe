@@ -54,7 +54,7 @@ const TransferDetails = () => {
             <div className={styles.blockContainer}>
                 {transferList.length > 0 && transferList.map((transferInfo, index) => (
                     <Fragment>
-                        <div>
+                        <div key={index} className={styles.block}>
                             <h3>{index === 0 ? transferInfo.senderAccount : transferInfo.receiverAccount}</h3>
                             <BlockItem id={transferInfo.txHash}
                                        key={transferInfo.txHash}

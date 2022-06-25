@@ -202,14 +202,12 @@ const SendFile = () => {
                 <Input inputConfig={{
                     id: 'startDate',
                     type: 'datetime-local',
-                    step: '1',
-                    value: inputState.startDate
+                    step: '1'
                 }} label='Kullanılabilir Süre Başlangıç Tarihi: ' onChange={startDateChange} />
                 <Input inputConfig={{
                     id: 'endDate',
                     type: 'datetime-local',
-                    step: '1',
-                    value: inputState.endDate
+                    step: '1'
                 }} label='Kullanılabilir Süre Bitiş Tarihi: ' onChange={endDateChange}/>
                 <Input inputConfig={{
                     id: 'file',
